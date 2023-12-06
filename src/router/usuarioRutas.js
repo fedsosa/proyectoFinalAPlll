@@ -1,4 +1,6 @@
 const usuarioRouter = require('express').Router();
+
+
 const {
     verUsuarios,
     verUsuario,
@@ -14,13 +16,13 @@ usuarioRouter.get('/usuarios', verUsuarios);
 usuarioRouter.get('/usuario/:id', verUsuario);
 
 // Crear usuario
-usuarioRouter.post('/usuario', crearUsuario);
+usuarioRouter.post('/ingresar', crearUsuario);
 
 // Editar usuario
-usuarioRouter.put('/usuario', editarUsuario);
+usuarioRouter.put('/editar', editarUsuario);
 
 // Eliminar usuario
-usuarioRouter.delete('/usuario', eliminarUsuario);
+usuarioRouter.delete('/eliminar', eliminarUsuario);
 
 
 module.exports = usuarioRouter;

@@ -1,12 +1,11 @@
-const UsuarioModel = require('./../model/usuarioModelMongo.js');
-
+const UsuarioModel = require ('./../model/usuarioModelMongo.js')
 const UsuariosController = {}
 
 // Ver usuarios
 UsuariosController.verUsuarios = async (req, res) => {
     try {
         const listaUsuarios = await UsuarioModel.find();
-        
+    
         return res.json(listaUsuarios);
     } catch (error) {
         return res.status(500).json({
@@ -18,18 +17,15 @@ UsuariosController.verUsuarios = async (req, res) => {
 
 // Ver usuario
 UsuariosController.verUsuario = async (req, res) => {
+    
     try {
         const { id } = req.params;
 
-        const usuarioEncontrado = await UsuarioModel.findByPk(id);
+        const usuarioEncontrado = await UsuarioModel.findById(id);
 
-        if (usuarioEncontrado) {
+        
             return res.json(usuarioEncontrado);
-        } else {
-            return res.status(500).json({
-                error: 'No se encontró el usuario.'
-            });
-        }
+        
     } catch (error) {
         return res.status(500).json({
             mensaje: 'Ocurrió un error interno',
@@ -40,58 +36,42 @@ UsuariosController.verUsuario = async (req, res) => {
 
 // Crear usuario
 UsuariosController.crearUsuario = async (req, res) => {
+
     try {
         const { nombres, apellidos } = req.body;
 
-        const nuevoUsuario = await UsuarioModel.create({
+        const nuevoUsuario = new UsuarioModel({
+            
             nombres: nombres,
-            apellidos: apellidos,
+            apellidos: apellidos
+           
         });
 
-        if (nuevoUsuario) {
-            return res.json({ mensaje: 'Usuario creado correctamente.' });
-        } else {
-            return res.status(500).json({
-                error: 'No se pudo crear el usuario.'
-            });
-        }
+        await nuevoUsuario.save();
+        
+        return res.json({ mensaje: 'Usuario creado con éxito' });
     } catch (error) {
         return res.status(500).json({
-            mensaje: 'Ocurrió un error interno',
+            mensaje: 'Ocurrió un error interno al intentar crear el usuario',
             error: error
         });
     }
 }
 
+
 // Editar usuario
 UsuariosController.editarUsuario = async (req, res) => {
+    
     try {
         const { id, nombres, apellidos } = req.body;
 
-        if (!id || !nombres || !apellidos) {
-            return res.status(500).json({
-                error: 'Faltan campos.'
-            });
-        }
-
-        const usuarioEditado = await UsuarioModel.update(
-            {
-                nombres: nombres,
-                apellidos: apellidos,
-            }, {
-                where: {
-                    id: id,
-                }
-            }
+         await UsuarioModel.findByIdAndUpdate(
+            id,
+            {nombres:nombres, apellidos:apellidos } 
         );
-
-        if (usuarioEditado) {
+      
             return res.json({ mensaje: 'Usuario editado correctamente.' });
-        } else {
-            return res.status(500).json({
-                error: 'No se pudo editar el usuario.'
-            });
-        }
+       
     } catch (error) {
         return res.status(500).json({
             mensaje: 'Ocurrió un error interno',
@@ -102,19 +82,16 @@ UsuariosController.editarUsuario = async (req, res) => {
 
 // Eliminar usuario
 UsuariosController.eliminarUsuario = async (req, res) => {
+  
     try {
-        console.log(req.body)
+       
         const { id } = req.body;
 
-        const eliminado = await UsuarioModel.destroy({ where: { id: id } });
+        await UsuarioModel.findByIdAndDelete(id);
 
-        if (eliminado) {
+       
             return res.json({ mensaje: 'Usuario eliminado correctamente.' });
-        } else {
-            return res.status(500).json({
-                mensaje: 'No se pudo eliminar el usuario.',
-            });
-        }
+        
     } catch (error) {
         return res.status(500).json({
             mensaje: 'Ocurrió un error interno',
@@ -122,6 +99,4 @@ UsuariosController.eliminarUsuario = async (req, res) => {
         });
     }
 }
-
-
 module.exports = UsuariosController;

@@ -21,15 +21,15 @@ AutenticacionController.autenticar = async (req, res) => {
         const datos = {
             id: usuarioEncontrado._id,
             usuario: usuarioEncontrado.usuario,
-            nombres: usuarioEncontrado.nombres,
-            apellidos: usuarioEncontrado.apellidos,
+            
+            
         }
 
         let token = jwt.sign(datos, JWT_KEY, { expiresIn: '1h' });
 
         res.json({ token: token, datos: datos });
     } catch (error) {
-        return res.status(500).json({ mensaje: 'Se produjo un error interno.' });
+        return res.status(500).json({ mensaje: 'Se produjo un error al validar.' });
     }
 }
 
