@@ -6,6 +6,6 @@ const loginSchema = new Schema({
     
 });
 
-const LoginModel = model('posteos', loginSchema);
+const LoginModel = model('login', loginSchema);
 
 module.exports = LoginModel;

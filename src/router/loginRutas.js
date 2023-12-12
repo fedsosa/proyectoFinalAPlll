@@ -1,10 +1,11 @@
 const loginRouter = require('express').Router();
 
 const {
-    crearLogin ,   
+    crearLogin , 
+    verLogin 
 } = require('./../controller/loginController.js');
 
 // Crear usuario
-loginRouter.post('/crearPost', crearLogin );
-
+loginRouter.post('/crearLogin', crearLogin );
+loginRouter.get('/verlog',verLogin );
 module.exports = loginRouter;

@@ -2,7 +2,7 @@ const comentarioModel = require('../model/comentarioModel');
 
 const comentarioController = {}
 
-// crear posteo
+// crear comentario
 comentarioController.crearComentario = async (req, res) => {
 
     try {
@@ -17,7 +17,7 @@ comentarioController.crearComentario = async (req, res) => {
 
         await nuevocomentario.save();
         
-        return res.json({ mensaje: 'Posteo creado con éxito' });
+        return res.json({ mensaje: 'comentario creado con éxito' });
     } catch (error) {
         return res.status(500).json({
             mensaje: 'Ocurrió un error interno al intentar crear el usuario',
@@ -27,7 +27,7 @@ comentarioController.crearComentario = async (req, res) => {
 }
 
 
-// Editar posteo
+// Editar comentario
 comentarioController.editarComentario= async (req, res) => {
     
     try {
@@ -38,7 +38,7 @@ comentarioController.editarComentario= async (req, res) => {
             { comentar:comentar, autor:autor } 
         );
       
-            return res.json({ mensaje: 'Posteo editado correctamente.' });
+            return res.json({ mensaje: 'comentario editado correctamente.' });
        
     } catch (error) {
         return res.status(500).json({
@@ -48,7 +48,7 @@ comentarioController.editarComentario= async (req, res) => {
     }
 }
 
-// Eliminar usuario
+// Eliminar comentario
 comentarioController.eliminarComentario = async (req, res) => {
     try {
        
@@ -57,7 +57,7 @@ comentarioController.eliminarComentario = async (req, res) => {
         await comentarioModel.findByIdAndDelete(id);
 
        
-            return res.json({ mensaje: 'posteo eliminado correctamente.' });
+            return res.json({ mensaje: 'comentario eliminado correctamente.' });
         
     } catch (error) {
         return res.status(500).json({
@@ -68,7 +68,7 @@ comentarioController.eliminarComentario = async (req, res) => {
 }
 
 
-// Ver Posteos
+// Ver comentario
 comentarioController.verComentario = async (req, res) => {
     try {
         const listaComentario = await comentarioModel.find();

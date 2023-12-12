@@ -38,12 +38,12 @@ UsuariosController.verUsuario = async (req, res) => {
 UsuariosController.crearUsuario = async (req, res) => {
 
     try {
-        const { nombres, apellidos } = req.body;
+        const { usuario, contraseña } = req.body;
 
         const nuevoUsuario = new UsuarioModel({
             
-            nombres: nombres,
-            apellidos: apellidos
+            usuario: usuario,
+            contraseña: contraseña
            
         });
 
@@ -63,11 +63,11 @@ UsuariosController.crearUsuario = async (req, res) => {
 UsuariosController.editarUsuario = async (req, res) => {
     
     try {
-        const { id, nombres, apellidos } = req.body;
+        const { id, usuario, contraseña } = req.body;
 
          await UsuarioModel.findByIdAndUpdate(
             id,
-            {nombres:nombres, apellidos:apellidos } 
+            {usuario:usuario, contraseña:contraseña } 
         );
       
             return res.json({ mensaje: 'Usuario editado correctamente.' });

@@ -8,9 +8,10 @@ const conectarMongo = require('./src/config/MongooseConfig');
 
 
 const  comentarioRouter= require('./src/router/comentarioRutas');
+const  loginRouter = require('./src/router/loginRutas.js');
 const  posteoRouter = require('./src/router/posteoRutas');
 const  usuarioRouter = require('./src/router/usuarioRutas');
-//const  loginRouter = require('./src/router/loginRutas.js');
+
 
 const port = 3000;
 
@@ -22,7 +23,7 @@ app.use(bodyParser.json())
 app.use(comentarioRouter);
 app.use(posteoRouter);
 app.use(usuarioRouter);
-//app.use(loginRouter);
+app.use(loginRouter);
 
 app.listen(port, () => {
   console.log(`servidor corriendo en puerto ${port}`);
