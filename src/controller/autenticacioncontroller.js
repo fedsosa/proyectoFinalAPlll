@@ -7,13 +7,14 @@ const JWT_KEY = process.env.JWT_KEY;
 
 AutenticacionController.autenticar = async (req, res) => {
     try {
-        const { usuario, contrasenia } = req.body;
-
+        const { usuario, contraseña } = req.body;
+  
         const usuarioEncontrado = await UsuarioModel.findOne({
             usuario: usuario,
-            contrasenia: contrasenia,
+            contraseña: contraseña,
+           
         });
-
+     
         if (!usuarioEncontrado) {
             return res.status(404).json({ mensaje: 'El usuario no fué encontrado.' });
         }
@@ -21,10 +22,11 @@ AutenticacionController.autenticar = async (req, res) => {
         const datos = {
             id: usuarioEncontrado._id,
             usuario: usuarioEncontrado.usuario,
-            
-            
+            nombre: usuarioEncontrado.nombre,
+            apellido: usuarioEncontrado.apellido,
         }
-
+             console.log(datos)
+             
         let token = jwt.sign(datos, JWT_KEY, { expiresIn: '1h' });
 
         res.json({ token: token, datos: datos });

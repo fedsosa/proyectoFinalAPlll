@@ -11,7 +11,7 @@ const  comentarioRouter= require('./src/router/comentarioRutas');
 const  loginRouter = require('./src/router/loginRutas.js');
 const  posteoRouter = require('./src/router/posteoRutas');
 const  usuarioRouter = require('./src/router/usuarioRutas');
-
+const  autenticacionRouter =require('./src/router/autenticacionRutas.js')
 
 const port = 3000;
 
@@ -24,6 +24,7 @@ app.use(comentarioRouter);
 app.use(posteoRouter);
 app.use(usuarioRouter);
 app.use(loginRouter);
+app.use(autenticacionRouter);
 
 app.listen(port, () => {
   console.log(`servidor corriendo en puerto ${port}`);

@@ -1,9 +1,8 @@
 const autenticacionRouter = require('express').Router();
 const {
     autenticar,
-    registrar,
     verificarToken,
-} = require('./../controllers/autenticacioncontroller.js');
+  } = require('./../controller/autenticacioncontroller');
 
 autenticacionRouter.post('/autenticar', autenticar);
 
