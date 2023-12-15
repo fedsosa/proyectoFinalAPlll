@@ -1,12 +1,28 @@
 const PostModel = require('./../model/posteoModel.js');
+const {verificarToken } = require ('./../utils/token.js')
 
 const PosteoController = {}
 
 // crear posteo
 PosteoController.crearPosteo = async (req, res) => {
-
+           
     try {
-        const {titulo, narrar, autor } = req.body;
+        const {titulo, narrar} = req.body;
+
+        const {token} = req . headers 
+       
+
+        const tokenValido = verificarToken (token);
+
+        if (!tokenValido) {
+            return res.status(500).json({
+                mensaje: 'Ocurrió un error interno al intentar crear el posteo',
+                error: error
+            });
+
+        }
+        
+         const autor = tokenValido.id;
 
         const nuevoPosteo = new PostModel({
             
@@ -20,7 +36,7 @@ PosteoController.crearPosteo = async (req, res) => {
         return res.json({ mensaje: 'Posteo creado con éxito' });
     } catch (error) {
         return res.status(500).json({
-            mensaje: 'Ocurrió un error interno al intentar crear el usuario',
+            mensaje: 'Ocurrió un error interno al intentar crear el posteo',
             error: error
         });
     }
@@ -34,8 +50,9 @@ PosteoController.editarPosteo = async (req, res) => {
         const { id, titulo, narrar,autor } = req.body;
 
          await PostModel.findByIdAndUpdate(
+            // validar el autor
             id,
-            {titulo:titulo, narrar:narrar, autor:autor } 
+            {titulo:titulo, narrar:narrar,  } 
         );
       
             return res.json({ mensaje: 'Posteo editado correctamente.' });
@@ -71,7 +88,7 @@ PosteoController.eliminarPosteo = async (req, res) => {
 // Ver Posteos
 PosteoController.verPosteos = async (req, res) => {
     try {
-        const listaPosteos = await PostModel.find();
+        const listaPosteos = await PostModel.find() //.populate('usuario');
     
         return res.json(listaPosteos);
     } catch (error) {

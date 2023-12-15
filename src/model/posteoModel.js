@@ -3,7 +3,10 @@ const { Schema, model } = require('mongoose');
 const PosteoSchema = new Schema({
     titulo: String,
     narrar: String,
-    autor: String,
+    autor: {
+        type: Schema.Types.ObjectId ,
+        ref: 'usuarios'
+    }
 });
 
 const PostModel = model('posteos', PosteoSchema);

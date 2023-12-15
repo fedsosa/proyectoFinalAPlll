@@ -25,7 +25,6 @@ AutenticacionController.autenticar = async (req, res) => {
             nombre: usuarioEncontrado.nombre,
             apellido: usuarioEncontrado.apellido,
         }
-             console.log(datos)
              
         let token = jwt.sign(datos, JWT_KEY, { expiresIn: '1h' });
 

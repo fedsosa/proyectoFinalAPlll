@@ -8,16 +8,16 @@ const {
     eliminarPosteo ,
 } = require('./../controller/posteosController.js');
 
-// Ver usuarios
+// Ver Posteos
 posteoRouter.get('/posteos', verPosteos);
 
-// Crear usuario
+// Crear Posteos
 posteoRouter.post('/crearPost', crearPosteo);
 
-// Editar usuario
+// Editar Posteos
 posteoRouter.put('/editarPost', editarPosteo);
 
-// Eliminar usuario
+// Eliminar Posteos
 posteoRouter.delete('/eliminarPost', eliminarPosteo);
 
 
