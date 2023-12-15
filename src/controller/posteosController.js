@@ -88,7 +88,7 @@ PosteoController.eliminarPosteo = async (req, res) => {
 // Ver Posteos
 PosteoController.verPosteos = async (req, res) => {
     try {
-        const listaPosteos = await PostModel.find() //.populate('usuario');
+        const listaPosteos = await PostModel.find().populate('autor') 
     
         return res.json(listaPosteos);
     } catch (error) {
